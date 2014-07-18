@@ -44,6 +44,8 @@ APP.Main = (function(window) {
 	var _init = function() {
 		_initStats.call(this);
 		
+		this.resize();
+		
 		APP.Config.init();
 		APP.Views.Index.init();
 		

@@ -47,7 +47,9 @@
 	<div id="page-container">
 		
 		<section id="page-content" class="index">
-			
+				
+				<canvas id="canvas"></canvas>
+				
 		</section>
 		
 	</div>
@@ -84,7 +86,7 @@
 <script src="<?php echo WEB_ROOT; ?>src/js/app/com/views/View.class.js"></script>
 
 <!-- Partials views -->
-<!-- <script src="<?php echo WEB_ROOT; ?>src/js/app/com/views/partials/View.Example.js"></script> -->
+<script src="<?php echo WEB_ROOT; ?>src/js/app/com/views/partials/View.Particle.js"></script>
 
 <!-- Page views -->
 <script src="<?php echo WEB_ROOT; ?>src/js/app/com/views/pages/View.Index.js"></script>

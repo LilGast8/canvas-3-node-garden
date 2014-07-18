@@ -58,6 +58,14 @@ a { text-decoration:none; }
 
 #main-container { }
 #page-container { }
-#page-content { }
+
+#page-content { 
+	position:absolute; 
+	left:0; 
+	top:0; 
+	width:100%; 
+	height:100%; 
+	overflow:hidden; 
+}
 
 
