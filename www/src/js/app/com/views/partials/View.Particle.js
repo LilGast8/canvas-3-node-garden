@@ -73,7 +73,7 @@ APP.Views.Particle = (function(window){
 		var dist = _getDistance.call(this, particle1);
 		
 		if(dist <= this.distMax) {
-			var opacity = (this.distMax/dist)/this.distMax;
+			var opacity = (Math.cos(Math.PI*dist/this.distMax)+1)/2*0.5;
 			
 			this.context.beginPath();
 			this.context.moveTo(particle1.x, particle1.y);
