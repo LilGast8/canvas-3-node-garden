@@ -6,7 +6,7 @@ APP.Views = APP.Views || {};
 APP.Views.Particle = (function(window){
 	
 	
-	function Particle(id, radius, color, distanceMax, attraction) {
+	function Particle(id, radius, color, attractionDistance, attraction) {
 		APP.View.call(this);
 		
 		this.name = 'particle-'+id;
@@ -17,12 +17,12 @@ APP.Views.Particle = (function(window){
 			g : color[1],
 			b : color[2]
 		};
-		this.distMax = distanceMax;
+		this.attractionDist = attractionDistance;
 		this.attraction = attraction;
 		
-		this.speed = 2;
-		this.speedX = Math.random()*this.speed-this.speed/2;
-		this.speedY = Math.random()*this.speed-this.speed/2;
+		this.speedMax = 2;
+		this.speedX = Math.random()*this.speedMax-this.speedMax/2;
+		this.speedY = Math.random()*this.speedMax-this.speedMax/2;
 		
 		this.isParsed = false;
 	}
@@ -46,7 +46,7 @@ APP.Views.Particle = (function(window){
 		};
 		
 		this.opacity = 1;
-		this.distMax = 100;
+		this.attractionDist = 100;
 		this.attraction = 20000;
 		*/
 	};
@@ -84,8 +84,8 @@ APP.Views.Particle = (function(window){
 		
 		var dist = _getDistance.call(this, particle1);
 		
-		if(dist.total <= this.distMax) {
-			var opacity = (Math.cos(Math.PI*dist.total/this.distMax)+1)/2*0.2;
+		if(dist.total <= this.attractionDist) {
+			var opacity = (Math.cos(Math.PI*dist.total/this.attractionDist)+1)/2*0.2;
 			
 			this.context.beginPath();
 			this.context.moveTo(particle1.x, particle1.y);
@@ -124,8 +124,8 @@ APP.Views.Particle = (function(window){
 	};
 	
 	
-	Particle.prototype.changeDistMax = function(distance) {
-		this.distMax = distance;
+	Particle.prototype.changeAttractionDist = function(distance) {
+		this.attractionDist = distance;
 	};
 	
 	
