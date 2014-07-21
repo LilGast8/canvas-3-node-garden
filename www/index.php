@@ -72,12 +72,14 @@
 <script src="<?php echo WEB_ROOT; ?>src/js/lib/preloadjs-0.4.1.min.js"></script>
 <script src="<?php echo WEB_ROOT; ?>src/js/lib/signals-1.0.0.min.js"></script>
 <script src="<?php echo WEB_ROOT; ?>src/js/lib/stats.min.js"></script>
+<script src="<?php echo WEB_ROOT; ?>src/js/lib/dat.gui.min.js"></script>
 
 <!-- Init -->
 <script src="<?php echo WEB_ROOT; ?>src/js/app/InitApp.js"></script>
 
 <!-- Config -->
 <script src="<?php echo WEB_ROOT; ?>src/js/app/com/config/Config.js"></script>
+<script src="<?php echo WEB_ROOT; ?>src/js/app/com/config/DatGui.js"></script>
 
 <!-- Events -->
 <script src="<?php echo WEB_ROOT; ?>src/js/app/com/events/EventDispatcher.class.js"></script>
