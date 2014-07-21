@@ -21,8 +21,6 @@ APP.Views.Particle = (function(window){
 		this.attraction = attraction;
 		
 		this.speedMax = 2;
-		this.speedX = Math.random()*this.speedMax-this.speedMax/2;
-		this.speedY = Math.random()*this.speedMax-this.speedMax/2;
 		
 		this.isParsed = false;
 	}
@@ -34,21 +32,9 @@ APP.Views.Particle = (function(window){
 	
 	Particle.prototype.initElt = function() {
 		this.resize();
+		_setSpeed.call(this);
 		
 		this.context = APP.Views.Index.context;
-		
-		/*
-		this.radius = 1;
-		this.color = {
-			r : 0,
-			g : 0,
-			b : 0
-		};
-		
-		this.opacity = 1;
-		this.attractionDist = 100;
-		this.attraction = 20000;
-		*/
 	};
 	
 	
@@ -61,7 +47,7 @@ APP.Views.Particle = (function(window){
 		this.windowW = APP.Main.windowW;
 		this.windowH = APP.Main.windowH;
 		
-		_replace.call(this);
+		this.replace(false);
 	};
 	
 	
@@ -126,11 +112,29 @@ APP.Views.Particle = (function(window){
 	
 	Particle.prototype.changeAttractionDist = function(distance) {
 		this.attractionDist = distance;
+		
+		_setSpeed.call(this);
 	};
 	
 	
 	Particle.prototype.changeAttraction = function(attraction) {
 		this.attraction = attraction;
+		
+		_setSpeed.call(this);
+	};
+	
+	
+	Particle.prototype.replace = function(replace) {
+		this.x = Math.random()*this.windowW;
+		this.y = Math.random()*this.windowH;
+		
+		if(replace) _setSpeed.call(this);
+	};
+	
+	
+	var _setSpeed = function() {
+		this.speedX = Math.random()*this.speedMax-this.speedMax/2;
+		this.speedY = Math.random()*this.speedMax-this.speedMax/2;
 	};
 	
 	
@@ -142,12 +146,6 @@ APP.Views.Particle = (function(window){
 		distance.total = Math.sqrt(distance.distX*distance.distX+distance.distY*distance.distY);
 		
 		return distance;
-	};
-	
-	
-	var _replace = function() {
-		this.x = Math.random()*this.windowW;
-		this.y = Math.random()*this.windowH;
 	};
 	
 	

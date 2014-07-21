@@ -9,6 +9,7 @@ APP.Views.Index = (function(window){
 	function Index() {
 		APP.View.call(this);
 		
+		this.nbParticlesMax = 200;
 		this.aParticles = [];
 		
 		this.id = 0;
@@ -27,11 +28,10 @@ APP.Views.Index = (function(window){
 		
 		this.nbParticles = 100;
 		this.backgroundColor = '#ffffff';
-	//	this.particleColor = '#000000';
 		this.particleColor = [0, 0, 0];
 		this.particleRadius = 1;
-		this.attractionDistance = 100;
 		this.attraction = 10;
+		this.attractionDistance = 100;
 		
 		this.$.canvas = $(this.canvas);
 		
@@ -67,9 +67,15 @@ APP.Views.Index = (function(window){
 		for(i=0; i<this.nbParticles; i++) {
 			if(type == 'color') this.aParticles[i].changeColor(this.particleColor);
 			else if(type == 'radius') this.aParticles[i].changeRadius(this.particleRadius);
-			else if(type == 'attractionDist') this.aParticles[i].changeAttractionDist(this.attractionDistance);
 			else if(type == 'attraction') this.aParticles[i].changeAttraction(attraction);
+			else if(type == 'attractionDist') this.aParticles[i].changeAttractionDist(this.attractionDistance);
+			else if(type == 'replace') this.aParticles[i].replace(true);
 		}
+	};
+	
+	
+	Index.prototype.replaceParticles = function() {
+		this.manageParticles('replace', null);
 	};
 	
 	
@@ -87,7 +93,7 @@ APP.Views.Index = (function(window){
 	
 	var _initParticles = function() {
 		var attraction = 100000/this.attraction;
-		for(var i=0; i<this.nbParticles; i++) {
+		for(var i=0; i<this.nbParticlesMax; i++) {
 			var particle = new APP.Views.Particle(i+1, this.particleRadius, this.particleColor, this.attractionDistance, attraction);
 			this.aParticles.push(particle);
 			particle.init();
@@ -96,9 +102,6 @@ APP.Views.Index = (function(window){
 	
 	
 	var _draw = function() {
-	//	this.id++;
-	//	if(this.id > 5) return false;
-		
 		APP.Main.stats.begin();
 		
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
