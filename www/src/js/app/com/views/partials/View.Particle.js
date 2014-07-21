@@ -26,14 +26,13 @@ APP.Views.Particle = (function(window){
 		this.x = Math.random()*this.windowW;
 		this.y = Math.random()*this.windowH;
 		this.radius = 1;
-	//	this.color = 'rgba(50, 50, 50, 0.5)';
-		this.color = 50;
+		this.color = 0;
 		this.opacity = 1;
-	//	this.colorLine = 50;
-		this.distMax = 150;
+		this.distMax = 100;
 		
-		this.speedX = Math.random()*2-1;
-		this.speedY = Math.random()*2-1;
+		this.speed = 2;
+		this.speedX = Math.random()*this.speed-this.speed/2;
+		this.speedY = Math.random()*this.speed-this.speed/2;
 		
 		this.isParsed = false;
 		
@@ -50,13 +49,6 @@ APP.Views.Particle = (function(window){
 		this.x += this.speedX;
 		this.y += this.speedY;
 		
-		/*
-		if(this.x-this.radius > this.windowW) this.x = -this.radius;
-		else if(this.x+this.radius < 0) this.x = this.windowW+this.radius;
-		if(this.y-this.radius > this.windowH) this.y = -this.radius;
-		else if(this.y+this.radius < 0) this.y = this.windowH+this.radius;
-		*/
-		
 		if(this.x+this.radius > this.windowW || this.x-this.radius < 0) this.speedX = -this.speedX;
 		if(this.y+this.radius > this.windowH || this.y-this.radius < 0) this.speedY = -this.speedY;
 		
@@ -72,8 +64,8 @@ APP.Views.Particle = (function(window){
 		
 		var dist = _getDistance.call(this, particle1);
 		
-		if(dist <= this.distMax) {
-			var opacity = (Math.cos(Math.PI*dist/this.distMax)+1)/2*0.5;
+		if(dist.total <= this.distMax) {
+			var opacity = (Math.cos(Math.PI*dist.total/this.distMax)+1)/2*0.2;
 			
 			this.context.beginPath();
 			this.context.moveTo(particle1.x, particle1.y);
@@ -83,6 +75,14 @@ APP.Views.Particle = (function(window){
 			this.context.strokeStyle = 'rgba('+this.color+', '+this.color+', '+this.color+', '+opacity+')';
 			this.context.stroke();
 			this.context.closePath();
+			
+			var vSpeedX = dist.distX/20000;
+			var vSpeedY = dist.distY/20000;
+			
+			particle1.speedX -= vSpeedX;
+			particle1.speedY -= vSpeedY;
+			this.speedX += vSpeedX;
+			this.speedY += vSpeedY;
 		}
 	};
 	
@@ -93,12 +93,13 @@ APP.Views.Particle = (function(window){
 	
 	
 	var _getDistance = function (particle1) {
-		var distX = particle1.x-this.x;
-		var distY = particle1.y-this.y;
+		var distance = {};
+		distance.distX = particle1.x-this.x;
+		distance.distY = particle1.y-this.y;
 		
-		var dist = Math.sqrt(distX*distX+distY*distY);
+		distance.total = Math.sqrt(distance.distX*distance.distX+distance.distY*distance.distY);
 		
-		return dist;
+		return distance;
 	};
 	
 	

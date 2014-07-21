@@ -9,7 +9,7 @@ APP.Views.Index = (function(window){
 	function Index() {
 		APP.View.call(this);
 		
-		this.nbParticles = 50;
+		this.nbParticles = 100;
 		this.aParticles = [];
 		
 		this.id = 0;
