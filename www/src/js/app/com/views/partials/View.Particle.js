@@ -6,7 +6,7 @@ APP.Views = APP.Views || {};
 APP.Views.Particle = (function(window){
 	
 	
-	function Particle(id, radius, color, attractionDistance, attraction) {
+	function Particle(id, radius, color, attraction, attractionForce, attractionDistance) {
 		APP.View.call(this);
 		
 		this.name = 'particle-'+id;
@@ -17,8 +17,9 @@ APP.Views.Particle = (function(window){
 			g : color[1],
 			b : color[2]
 		};
-		this.attractionDist = attractionDistance;
 		this.attraction = attraction;
+		this.attractionForce = attractionForce;
+		this.attractionDist = attractionDistance;
 		
 		this.speedMax = 2;
 		
@@ -82,13 +83,15 @@ APP.Views.Particle = (function(window){
 			this.context.stroke();
 			this.context.closePath();
 			
-			var vSpeedX = dist.distX/this.attraction;
-			var vSpeedY = dist.distY/this.attraction;
-			
-			particle1.speedX -= vSpeedX;
-			particle1.speedY -= vSpeedY;
-			this.speedX += vSpeedX;
-			this.speedY += vSpeedY;
+			if(this.attraction) {
+				var vSpeedX = dist.distX/this.attractionForce;
+				var vSpeedY = dist.distY/this.attractionForce;
+				
+				particle1.speedX -= vSpeedX;
+				particle1.speedY -= vSpeedY;
+				this.speedX += vSpeedX;
+				this.speedY += vSpeedY;
+			}
 		}
 	};
 	
@@ -110,15 +113,22 @@ APP.Views.Particle = (function(window){
 	};
 	
 	
-	Particle.prototype.changeAttractionDist = function(distance) {
-		this.attractionDist = distance;
+	Particle.prototype.changeAttraction = function(attraction) {
+		this.attraction = attraction;
 		
 		_setSpeed.call(this);
 	};
 	
 	
-	Particle.prototype.changeAttraction = function(attraction) {
-		this.attraction = attraction;
+	Particle.prototype.changeAttractionForce = function(attractionForce) {
+		this.attractionForce = attractionForce;
+		
+		_setSpeed.call(this);
+	};
+	
+	
+	Particle.prototype.changeAttractionDist = function(distance) {
+		this.attractionDist = distance;
 		
 		_setSpeed.call(this);
 	};

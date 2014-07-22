@@ -30,7 +30,8 @@ APP.Views.Index = (function(window){
 		this.backgroundColor = '#ffffff';
 		this.particleColor = [0, 0, 0];
 		this.particleRadius = 1;
-		this.attraction = 10;
+		this.attraction = true;
+		this.attractionForce = 10;
 		this.attractionDistance = 100;
 		
 		this.$.canvas = $(this.canvas);
@@ -56,18 +57,19 @@ APP.Views.Index = (function(window){
 	
 	
 	Index.prototype.manageParticles = function(type, v) {
-		var attraction;
+		var attractionForce;
 		if(type == 'color') {
 			this.particleColor[0] = parseInt(this.particleColor[0]);
 			this.particleColor[1] = parseInt(this.particleColor[1]);
 			this.particleColor[2] = parseInt(this.particleColor[2]);
 		}
-		else if(type == 'attraction') attraction = 100000/this.attraction;
+		else if(type == 'attractionForce') attractionForce = 100000/this.attractionForce;
 		
-		for(i=0; i<this.nbParticles; i++) {
+		for(i=0; i<this.nbParticlesMax; i++) {
 			if(type == 'color') this.aParticles[i].changeColor(this.particleColor);
 			else if(type == 'radius') this.aParticles[i].changeRadius(this.particleRadius);
-			else if(type == 'attraction') this.aParticles[i].changeAttraction(attraction);
+			else if(type == 'attraction') this.aParticles[i].changeAttraction(this.attraction);
+			else if(type == 'attractionForce') this.aParticles[i].changeAttractionForce(attractionForce);
 			else if(type == 'attractionDist') this.aParticles[i].changeAttractionDist(this.attractionDistance);
 			else if(type == 'replace') this.aParticles[i].replace(true);
 		}
@@ -92,9 +94,9 @@ APP.Views.Index = (function(window){
 	
 	
 	var _initParticles = function() {
-		var attraction = 100000/this.attraction;
+		var attractionForce = 100000/this.attractionForce;
 		for(var i=0; i<this.nbParticlesMax; i++) {
-			var particle = new APP.Views.Particle(i+1, this.particleRadius, this.particleColor, this.attractionDistance, attraction);
+			var particle = new APP.Views.Particle(i+1, this.particleRadius, this.particleColor, this.attraction, attractionForce, this.attractionDistance);
 			this.aParticles.push(particle);
 			particle.init();
 		}
