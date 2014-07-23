@@ -25,6 +25,7 @@ APP.Views.Index = (function(window){
 		
 		this.canvas = document.getElementById('canvas');
 		this.context = this.canvas.getContext('2d');
+		this.$.canvas = $(this.canvas);
 		
 		this.nbParticles = 100;
 		this.backgroundColor = '#ffffff';
@@ -33,8 +34,6 @@ APP.Views.Index = (function(window){
 		this.attraction = true;
 		this.attractionForce = 10;
 		this.attractionDistance = 100;
-		
-		this.$.canvas = $(this.canvas);
 		
 		_initParticles.call(this);
 		

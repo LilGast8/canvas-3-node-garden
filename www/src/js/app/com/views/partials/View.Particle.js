@@ -24,6 +24,23 @@ APP.Views.Particle = (function(window){
 		this.speedMax = 2;
 		
 		this.isParsed = false;
+		
+		/*
+		this.vX = 0;
+		this.vY = 0;
+		this.s1X = Math.random();
+		this.s1Y = Math.random();
+		this.s2X = Math.random();
+		this.s2Y = Math.random();
+		
+		this.v1X = Math.random()*10-5;
+		this.v1Y = Math.random()*10-5;
+		this.v2X = Math.random()*10-5;
+		this.v2Y = Math.random()*10-5;
+		*/
+		
+		this.easeX = new APP.Views.Ease(Math.random(), 2, 100, 0);
+		this.easeY = new APP.Views.Ease(Math.random(), 2, 100, 0);
 	}
 	
 	
@@ -53,11 +70,36 @@ APP.Views.Particle = (function(window){
 	
 	
 	Particle.prototype.draw = function(color) {
-		this.x += this.speedX;
-		this.y += this.speedY;
+		/*
+		this.vX += Math.random()*0.5;
+		this.vY += Math.random()*0.5;
+	//	this.vX += this.s1X;
+	//	this.vY += this.s1Y;
 		
-		if(this.x+this.radius > this.windowW || this.x-this.radius < 0) this.speedX = -this.speedX;
-		if(this.y+this.radius > this.windowH || this.y-this.radius < 0) this.speedY = -this.speedY;
+		var t1 = (Math.random()*0.6-0.3);
+		var t2 = (Math.random()*0.6-0.3);
+		
+	//	console.log(Math.cos(this.x));
+		this.x = (this.x+Math.cos(this.vX-t1)*this.v1X-Math.sin(this.vX-t2)*this.v2X*(Math.random()*1-0.5));
+		this.y = this.y+Math.sin(this.vY-t2)*this.v1Y-Math.cos(this.vY-t1*(Math.random()*1-0.5))*this.v2Y;
+		*/
+		
+		
+		
+	//	this.x += this.speedX;
+	//	this.y += this.speedY;
+		
+		
+		this.easeX.update(0.1);
+		this.easeY.update(0.1);
+		
+		this.x = this.easeX.value*this.windowW;
+		this.y = this.easeY.value*this.windowH;
+		
+		
+		
+		if(this.x+this.radius > this.windowW || this.x-this.radius < 0) this.speedX *= -1;
+		if(this.y+this.radius > this.windowH || this.y-this.radius < 0) this.speedY *= -1;
 		
 		this.context.beginPath();
 		this.context.arc(this.x, this.y, this.radius, 0, 2*Math.PI, false);

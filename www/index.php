@@ -88,6 +88,7 @@
 <script src="<?php echo WEB_ROOT; ?>src/js/app/com/views/View.class.js"></script>
 
 <!-- Partials views -->
+<script src="<?php echo WEB_ROOT; ?>src/js/app/com/views/partials/View.Ease.js"></script>
 <script src="<?php echo WEB_ROOT; ?>src/js/app/com/views/partials/View.Particle.js"></script>
 
 <!-- Page views -->
