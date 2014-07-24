@@ -48,7 +48,13 @@ APP.Views.Ease = (function(window){
 	
 	Ease.prototype.reset = function() {
 		this.begin = this.end;
-		this.end = Math.random();
+		
+	//	this.end = Math.random();
+		
+		this.end = this.end+Math.random()*0.5-0.25;
+		var oldEnd = this.end;
+		while(this.end < 0 || this.end > 1) this.end = oldEnd+Math.random()*0.5-0.25;
+		
 		this.time = 0;
 		this.duration = Math.sqrt(Math.abs(this.end - this.begin)) * this.maxDuration;
 	};

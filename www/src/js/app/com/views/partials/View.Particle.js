@@ -39,8 +39,8 @@ APP.Views.Particle = (function(window){
 		this.v2Y = Math.random()*10-5;
 		*/
 		
-		this.easeX = new APP.Views.Ease(Math.random(), 2, 100, 0);
-		this.easeY = new APP.Views.Ease(Math.random(), 2, 100, 0);
+		this.easeX = new APP.Views.Ease(Math.random(), 2, 30, 0);
+		this.easeY = new APP.Views.Ease(Math.random(), 2, 30, 0);
 	}
 	
 	
@@ -90,8 +90,8 @@ APP.Views.Particle = (function(window){
 	//	this.y += this.speedY;
 		
 		
-		this.easeX.update(0.1);
-		this.easeY.update(0.1);
+		this.easeX.update(0.03);
+		this.easeY.update(0.03);
 		
 		this.x = this.easeX.value*this.windowW;
 		this.y = this.easeY.value*this.windowH;
